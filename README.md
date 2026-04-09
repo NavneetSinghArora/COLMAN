@@ -1,44 +1,118 @@
-# Foreword:
+# COLMAN: Collaborative Multi-Agent Navigation
 
-This project is based on https://github.com/allenai/cordial-sync
-Many thanks to the authors of the original code.
+[![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
+[![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
+[![AI2-THOR](https://img.shields.io/badge/Simulator-AI2--THOR-green.svg)](https://ai2thor.allenai.org/)
 
-# Flow of codebase:
+**COLMAN** is a state-of-the-art framework for **COLlaborative Multi-Agent Navigation** and interaction. Built upon the [AI2-THOR](https://ai2thor.allenai.org/) simulation environment and inspired by [Cordial-Sync](https://github.com/allenai/cordial-sync), this project focuses on multi-agent communication, visual-path navigation, object detection, and precise object manipulation in photo-realistic 3D indoor scenes.
 
-## Setup.py- 
-Add dependencies in the requirement array, so that it can be packaged at the end. It is a static file. It won’t change and only when new requirements come in.
+---
 
-## Requirements.txt- 
-We can update it or not, for now, we can but it would be redundant later.
+## 🚀 Key Features
 
-## History.md- 
-When a package is created then this stores the version updates.
+- 🤝 **Multi-Agent Collaboration**: Synchronized navigation and task execution using multiple agents.
+- 📍 **Visual-Path Navigation**: Egocentric visual perception for intelligent pathfinding.
+- 🔍 **Object Detection & Movement**: Advanced modules for identifying and interacting with objects (pickup, movement, etc.).
+- 🛠️ **CLI Interface**: A powerful Command Line Interface (`attention_and_move`) for training, dataset preparation, and evaluation.
+- 🏗️ **Modular Architecture**: Clean separation between simulator logic, core models, and specialized services.
 
-## Scripts folder:
-### Execute.py-
-The main file to create cmd line interface for the module. Cli method initializes the entire global variable class which is meant to hold all the global properties and variables across the entire project. Creates 1 obj of class with one variable that holds everything. They are in project/configuration.properties , similar for the simulator. It will then be available to the modules. Click is used to create cli command. This will be extended to more commands such as evaluate etc. for every submodule etc. A command can be added to create a dataset where you can tell what to add with args etc. When you ask for –help then you will see the comments to give that info. In a way, this is the starting point of the project. Other scripts are the ones that can run independently without influencing the project in general. They can be moved to utils or execute.py. 
+---
 
-## Resources folder-
-Has config files for project and simulator, but might have model-specific configs. Basically, what the project can be used overall. 
+## 📂 Project Structure
 
-## Output-
-Embeddings, birds eye view, checkpoints, any other output. 
+The project is organized into several key directories:
 
-## Src/core-
-### Model/Simulator-
-Common for all the modules we have. 
+| Directory | Description |
+| :--- | :--- |
+| `src/core` | Contains the core logic, including models, simulator wrappers, and domain services. |
+| `src/scripts` | Entry point scripts for the CLI and standalone utilities (dataset preparation, image stitching). |
+| `resources` | Configuration files for project-wide settings and AI2-THOR simulator parameters. |
+| `output` | Storage for training checkpoints, embeddings, birds-eye view images, and logs. |
+| `hummel` | Integration modules for high-performance computing (HPC) environments. |
 
-#### Environment.py- 
-Singleton class, one obj of the environment created, every agent will have the same env. Init gets properties etc. The controller is created. Inspired from cordial sync main code. Obj can be fetched from here. It randomizes the agent using teleport. This function has to be modified, the way methods are written is according to the previous version and is simple to understand but can be modified if we want. In the start method, it randomizes agent, inits target obj, we create bird view config and we have agents init view. The rest of the code can be gone to other modules but to make it simple things are added there. The start, stop, reset are also used in gym and are standard commands so it is a common config setup. 
-In the model folder, we can keep different modules to modularize, obj detection, RL for obj pickup, moving, etc. 
+---
 
-### Core/services:
-Used everywhere in the industry, it has certain functionalities that serve the main module. Things that cannot be added to the module but still want it so it is added to services. 
+## 🛠️ Installation
 
-## Utils-
-Loading of property and other utilities, etc
+### 1. Clone the Repository
+```bash
+git clone https://github.com/NavneetSinghArora/COLMAN.git
+cd COLMAN
+```
 
+### 2. Set Up Environment
+We recommend using [Conda](https://docs.anaconda.com/anaconda/install/) to manage dependencies:
 
+```bash
+conda create -n colman python=3.8
+conda activate colman
+```
 
-## Other points to figure out and work with:
-Additional structuring of the codebase, pylint, standard way of coding, log handler for modules, exception handling
+### 3. Install Dependencies
+Install the package in editable mode to ensure all entry points are registered:
+
+```bash
+pip install -e .
+```
+
+> [!NOTE]
+> This project requires **PyTorch** and **AI2-THOR**. Refer to `setup.py` for specific version requirements matched to your OS (Linux/macOS).
+
+---
+
+## 🎮 Usage
+
+The project uses the `attention_and_move` CLI for all major operations.
+
+### Training
+Start local training with various options (GPU, learning rate, epochs, etc.):
+```bash
+attention_and_move training --start --platform OSXIntel64 --gpu 1 --epochs 50
+```
+
+### Dataset Preparation
+Collect egocentric agent views across different scenes to build a custom dataset:
+```bash
+attention_and_move dataset --create --scene LivingRoom --scene Kitchen
+```
+
+### Utilities
+- `src/scripts/stitch_images.py`: Combine multiple egocentric views for panoramic or bird-eye analysis.
+- `src/scripts/prepare_train_val_test.py`: Split collected data into standard machine learning folds.
+
+---
+
+## ⚙️ Configuration
+
+System behavior is managed through `.properties` files in the `resources/` folder:
+
+- **`project/configuration.properties`**: Global project settings, such as object detection thresholds.
+- **`simulator/configuration.properties`**: AI2-THOR specific settings:
+    - `number_of_agents`: Set to `2` by default for collaborative tasks.
+    - `agent_mode`: Choose between `default`, `locobot`, or `arm` (ManipulaTHOR).
+    - `target_object`: Define the goal for navigation tasks (e.g., `Television`, `Sofa`).
+
+---
+
+## 🧠 Core Architecture
+
+- **`Environment.py`**: A Singleton class that manages the AI2-THOR controller, agent teleportation, and scene randomization.
+- **`GlobalVariables.py`**: A centralized class holding project-wide properties, accessible across all modules.
+- **Model modularity**: Separate modules for RL-based navigation, goal-oriented object detection, and multi-agent signaling.
+
+---
+
+## 📚 References & Acknowledgments
+
+This project is part of a **Computer Vision Master Project** and builds upon significant research in Embodied AI.
+
+- **[AI2-THOR](https://ai2thor.allenai.org/)**: The House Of inteRactions.
+- **[Cordial-Sync](https://github.com/allenai/cordial-sync)**: Collaborative Robot Navigation via DIALogue.
+- **[NavneetSinghArora/AI2Thor](https://github.com/NavneetSinghArora/AI2Thor)**: Supporting utilities and research.
+- **[NavneetSinghArora/EmbodiedAI](https://github.com/NavneetSinghArora/EmbodiedAI)**: Related work in embodied agents.
+
+---
+
+## 📄 License
+
+(c) Copyright by author. See `LICENSE` for details.
