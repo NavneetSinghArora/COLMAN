@@ -6,7 +6,7 @@ DESCRIPTION = 'A python package for multi-agent communication,  visual-path navi
 AUTHOR = 'Team 1: Computer Vision Master Project'
 REQUIRES_PYTHON = '>=3.8.0'
 VERSION = '0.0.1'
-LICENSE = '(c) Copyright by author'
+LICENSE = 'MIT'
 
 with open('README.md', 'r') as readme_file:
     readme = readme_file.read()
@@ -79,7 +79,7 @@ setup(
     author=AUTHOR,
     description=DESCRIPTION,
     long_description=readme + '\n\n' + history,
-    long_description_content_type='text/x-rst',
+    long_description_content_type='text/markdown',
     license=LICENSE,
     packages=find_packages(),
     include_package_data=True,
@@ -95,7 +95,7 @@ setup(
 
     classifiers=[
         'Development Status :: 1 - Planning',
-        'License :: Other/Proprietary License',
+        'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3.8',

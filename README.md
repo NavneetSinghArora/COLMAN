@@ -1,10 +1,10 @@
 # COLMAN: Collaborative Multi-Agent Navigation
 
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
-[![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![AI2-THOR](https://img.shields.io/badge/Simulator-AI2--THOR-green.svg)](https://ai2thor.allenai.org/)
 
-**COLMAN** is a state-of-the-art framework for **COLlaborative Multi-Agent Navigation** and interaction. Built upon the [AI2-THOR](https://ai2thor.allenai.org/) simulation environment and inspired by [Cordial-Sync](https://github.com/allenai/cordial-sync), this project focuses on multi-agent communication, visual-path navigation, object detection, and precise object manipulation in photo-realistic 3D indoor scenes.
+**COLMAN** is a state-of-the-art framework for **Collaborative Multi-Agent Navigation** and interaction. Built upon the [AI2-THOR](https://ai2thor.allenai.org/) simulation environment and inspired by [Cordial-Sync](https://github.com/allenai/cordial-sync), this project focuses on multi-agent communication, visual-path navigation, object detection, and precise object manipulation in photo-realistic 3D indoor scenes.
 
 ---
 
@@ -115,4 +115,4 @@ This project is part of a **Computer Vision Master Project** and builds upon sig
 
 ## 📄 License
 
-(c) Copyright by author. See `LICENSE` for details.
+This project is licensed under the **MIT License**. It is a derivative work building upon research by Ilya Kostrikov and the Allen Institute for Artificial Intelligence (AI2). See the [LICENSE](LICENSE) file for full copyright notices and permission terms.
